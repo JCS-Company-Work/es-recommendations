@@ -1,0 +1,16 @@
+{
+    "name": "neilwilliams/es-recommendations",
+    "description": "ES Recommendations plugin",
+    "autoload": {
+        "psr-4": {
+            "EsRecommendations\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Neil Williams",
+            "email": "neil@tailormade.uk"
+        }
+    ],
+    "require": {}
+}
