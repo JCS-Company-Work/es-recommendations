@@ -5,6 +5,15 @@ document.addEventListener('DOMContentLoaded', function () {
     // Keep track of all entered IDs
     let allIds = [];
 
+    const input = document.getElementById('ids');
+
+    input.addEventListener('paste', () => {
+        // Allow paste to happen first
+        setTimeout(() => {
+            input.value = decodeURIComponent(input.value);
+        }, 0);
+    });
+
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 

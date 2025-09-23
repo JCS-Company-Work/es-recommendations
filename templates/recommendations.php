@@ -88,7 +88,7 @@ $items   = $compare->display_recommendations();
                         </div>
                     </a>
 
-                    <a href="<?php the_permalink(); ?>">
+                    <a href="<?php echo $item['permalink']; ?>">
                         
                         <img class="swatchspacer" width="500" height="500" alt="swatch spacer" src="/wp-content/themes/emporio/images/tile-swatch-square.png">
                         
@@ -96,7 +96,7 @@ $items   = $compare->display_recommendations();
                         
                         <ul class="product-list-attributes">
                             <li class="joblotnumber">ID:<?php echo $item['batch']['joblot_number']; ?></li>
-                            <li class="product-title"><?php echo $item['batch']['factory_name']; ?> <?php echo get_the_title(); ?><?php if(!empty($item['batch']['decor'])) : echo ' ' . $item['batch']['decor']; endif; ?><?php if($item['batch']['finish']) : echo ' - ' . $item['batch']['finish']; endif; ?></li>
+                            <li class="product-title"><?php echo $item['batch']['factory_name']; ?> <?php echo $item['title']; ?><?php if(!empty($item['batch']['decor'])) : echo ' ' . $item['batch']['decor']; endif; ?><?php if($item['batch']['finish']) : echo ' - ' . $item['batch']['finish']; endif; ?></li>
                             <li><?php echo $item['batch']['size']; ?> mm</li>
                             <?php 
 

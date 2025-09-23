@@ -93,7 +93,7 @@ class ESRE_Compare {
                     'title'                     => get_the_title(),
                     'effect'                    => $tileData->findEffect( $id ),
                     'gallery'                   => get_post_gallery() ? get_post_gallery( $id, false ) : null,
-                    'swatches_first'            => get_field( 'display_swatches_first' ),
+                    'swatches_first'            => true,
                     'colour'                    => strtolower( (string) get_field( 'colour' ) ),
                     'batch'                     => $batchData,
                     'stock'                     => $product->get_stock_quantity(),

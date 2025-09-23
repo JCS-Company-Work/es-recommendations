@@ -2,7 +2,7 @@
 /**
  * Plugin Name: ES Recommendations
  * Description: Simple form + shortcode to create product comparison URLs.
- * Version: 0.1.0
+ * Version: 1.1
  * Author: Emporio Surfaces
  */
 
@@ -24,7 +24,7 @@ use EsRecommendations\ESRE_RegisterTemplates;
 
 // Register shortcode on init.
 add_action( 'init', function() {
-    
+
     new ESRE_Create();
     new ESRE_Compare();
     new ESRE_RegisterTemplates();
