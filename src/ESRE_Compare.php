@@ -1,71 +1,113 @@
 <?php
-
 namespace EsRecommendations;
 
 use WP_Query;
 
+/**
+ * Handles building comparison data for recommended batches.
+ *
+ * Gathers product information based on a comma-separated list of IDs
+ * passed via the URL, returning an array of structured item data.
+ */
 class ESRE_Compare {
 
+    /**
+     * Set up hooks and ensure tileSpecs class is loaded.
+     */
     public function __construct() {
-		add_shortcode( 'recommendations', [ $this, 'display_recommendations' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
-	}
+        add_action( 'wp_enqueue_scripts', [ $this, 'register_assets' ] );
 
-	/**
-	 * Register the JS (but don't enqueue globally).
-	 */
-	public function register_assets() {
-		wp_register_script(
-			'compare-recommendations',
-			plugins_url( '/../assets/js/compare.js', __FILE__ ),
-			[],
-			ESRE_VERSION,
-			true
-		);
-	}
-
-    public function display_recommendations() {
-
-        // Enqueue only when shortcode is rendered
-		wp_enqueue_script( 'compare-recommendations' );
-
-        // Get the 'ids' parameter from URL
-        $ids_param = isset($_GET['ids']) ? sanitize_text_field($_GET['ids']) : '';
-
-        if ( empty( $ids_param ) ) {
-            echo '<p>No products selected for comparison.</p>';
-            return;
-        }
-
-        // Split by comma into array of IDs
-        $batch_ids = array_filter( array_map( 'intval', explode( ',', $ids_param ) ) );
-
-        if ( empty( $batch_ids ) ) {
-            echo '<p>No valid product IDs provided.</p>';
-            return;
-        }
-
-        // Example WP_Query to get posts by ID
-        $args = [
-            'post_type'      => 'batch', // adjust if your post type is different
-            'post__in'       => $batch_ids,
-            'posts_per_page' => -1,
-            'orderby'        => 'post__in', // preserve the order from URL
-        ];
-
-        $query = new WP_Query( $args );
-
-        if ( $query->have_posts() ) {
-            echo '<ul class="compare-products">';
-            while ( $query->have_posts() ) {
-                $query->the_post();
-                echo '<li>' . get_the_title() . ' (ID: ' . get_the_ID() . ')</li>';
-            }
-            echo '</ul>';
-            wp_reset_postdata();
-        } else {
-            echo '<p>No products found for the given IDs.</p>';
-        }
+        // Load tileSpecs class once when the plugin is loaded.
+        require_once get_stylesheet_directory() . '/classes/tileSpecs.php';
     }
 
+    /**
+     * Register the JavaScript needed for the comparison view.
+     *
+     * Script is only enqueued when display_recommendations() runs.
+     */
+    public function register_assets() {
+        wp_register_script(
+            'compare-recommendations',
+            plugins_url( '/../assets/js/compare.js', __FILE__ ),
+            [],
+            ESRE_VERSION,
+            true
+        );
+    }
+
+    /**
+     * Build and return an array of comparison items.
+     *
+     * Reads a comma-separated list of IDs from the "ids" query string,
+     * queries matching 'batch' posts, and assembles all relevant fields.
+     *
+     * @return array Structured product data ready for template output.
+     */
+    public function display_recommendations() {
+
+        // Enqueue JS only when needed.
+        wp_enqueue_script( 'compare-recommendations' );
+
+        // Sanitize and validate the incoming IDs.
+        $ids_param = isset( $_GET['ids'] ) ? sanitize_text_field( $_GET['ids'] ) : '';
+        if ( empty( $ids_param ) ) {
+            return [];
+        }
+
+        $batch_ids = array_filter( array_map( 'intval', explode( ',', $ids_param ) ) );
+        if ( empty( $batch_ids ) ) {
+            return [];
+        }
+
+        // Query matching batch posts.
+        $query = new WP_Query( [
+            'post_type'      => 'batch',
+            'post__in'       => $batch_ids,
+            'posts_per_page' => -1,
+            'orderby'        => 'post__in',
+        ] );
+
+        $items = [];
+
+        // Collect and format data for each post.
+        if ( $query->have_posts() ) {
+
+            while ( $query->have_posts() ) {
+
+                $query->the_post();
+
+                $id = get_the_ID();
+
+                if ( ! class_exists( '\tileSpecs' ) ) {
+                    require_once get_stylesheet_directory() . '/classes/tileSpecs.php';
+                }
+
+                $tileData  = new \tileSpecs( $id );
+                $batchData = $tileData->batchesData();
+                $product = wc_get_product( $id );
+
+                $items[] = [
+                    'id'             => $id,
+                    'permalink'      => get_permalink(),
+                    'title'          => get_the_title(),
+                    'effect'         => $tileData->findEffect( $id ),
+                    'gallery'        => get_post_gallery() ? get_post_gallery( $id, false ) : null,
+                    'swatches_first' => get_field( 'display_swatches_first' ),
+                    'colour'         => strtolower( (string) get_field( 'colour' ) ),
+                    'batch'          => $batchData,
+                    'stock'          => $product->get_stock_quantity(),
+                    'menu_order'     => (int) get_post_field( 'menu_order', $id ),
+                    'discounted_carton_price'   => $tileData->discounted_carton_price,
+                    'sqm'                       => $tileData->sqm,
+                    'vatRate'                   => $tileData->vatRate,
+                    'single_carton_price'       => $tileData->single_carton_price,
+
+                ];
+            }
+            wp_reset_postdata();
+        }
+
+        return $items;
+    }
 }

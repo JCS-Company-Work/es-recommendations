@@ -1,5 +1,3 @@
-console.log('create');
-
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('.compare-form');
     const compareLink = document.getElementById('compare-link');

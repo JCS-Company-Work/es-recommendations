@@ -20,9 +20,13 @@ if ( file_exists( ESRE_PATH . 'vendor/autoload.php' ) ) {
 
 use EsRecommendations\ESRE_Create;
 use EsRecommendations\ESRE_Compare;
+use EsRecommendations\ESRE_RegisterTemplates;
 
 // Register shortcode on init.
 add_action( 'init', function() {
+    
     new ESRE_Create();
     new ESRE_Compare();
+    new ESRE_RegisterTemplates();
+
 });
