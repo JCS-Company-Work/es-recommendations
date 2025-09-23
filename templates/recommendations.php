@@ -17,15 +17,15 @@ $items   = $compare->display_recommendations();
         <ul class="product-list container productloading">
             <?php foreach ( $items as $index => $item ) : ?>
                 <li 
-                    data-id="<?php echo get_the_ID(); ?>"
+                    data-id="<?php echo $item['id']; ?>"
                     data-discount-rate="<?php echo round($item['batch']['discount_percentage'], 0); ?>% Off"
-                    data-menu-order="<?php echo get_post_field( 'menu_order', get_the_ID()); ?>" 
+                    data-menu-order="<?php echo get_post_field( 'menu_order', $item['id']); ?>" 
                     data-default-order="<?= $i; ?>" 
                     data-price-order="<?php echo $item['batch']['price_per_sqm'] ?>"
 
                     class="featured mix <?php echo $item['batch']['job_lot_class']; ?> <?php echo $item['batch']['cat_effect_classes'] ?>">
 
-                    <a href="<?php the_permalink(); ?>">
+                    <a href="<?php echo $item['permalink']; ?>">
 
                         <div class="swatch-container">
 
@@ -35,7 +35,7 @@ $items   = $compare->display_recommendations();
                                     
                                     <?php if(count($item['gallery']['src']) > 1) : // if more than 1 gallery image 
                                     
-                                        if($swatches_first) :  // if swatches first toggle ?>
+                                        if($item['swatches_first']) :  // if swatches first toggle ?>
                                                 
                                             <?php if($i < 4) {  // loop the first three items to prioritise image loading ?>
                                                     

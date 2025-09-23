@@ -14,7 +14,7 @@ class ESRE_RegisterTemplates {
     public function add_template( $templates ) {
 
         $templates['recommendations.php'] = 'Recommendations';
-var_dump($templates);
+
         return $templates;
 
     }
