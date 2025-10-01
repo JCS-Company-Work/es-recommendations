@@ -29,7 +29,7 @@ class ESRE_Compare {
     public function register_assets() {
         wp_register_script(
             'compare-recommendations',
-            plugins_url( '/../assets/js/compare.js', __FILE__ ),
+            plugins_url( '/../assets/js/PricingCalculator.js', __FILE__ ),
             [],
             ESRE_VERSION,
             true

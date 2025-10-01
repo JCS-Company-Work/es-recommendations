@@ -1,5 +1,3 @@
-<ul>
-
 <?php if(array_key_exists('price_per_piece', $item) && $item['price_per_piece']) : ?>
 
     <li class="calculations"><span>Quantity</span> 
@@ -7,7 +5,7 @@
         <div class="user-inputs">
 
             <div>
-                <input class="qty" calculator-type="per-piece" input-type="tiles" type="number" id="user-tiles" name="user-tiles" step="<?php echo number_format($batchData['pieces_per_carton']); ?>" min="<?php echo number_format($batchData['pieces_per_carton']); ?>" max="<?php echo $batchData['total_pieces']; ?>" onchange="changeHiddenInput(document.querySelector('.batch-split-price').textContent, this.getAttribute('calculator-type'))" value="<?php echo number_format($batchData['pieces_per_carton']); ?>">
+                <input class="qty" calculator-type="per-piece" input-type="tiles" type="number" id="user-tiles" name="user-tiles" step="<?php echo number_format($item['batch']['pieces_per_carton']); ?>" min="<?php echo number_format($item['batch']['pieces_per_carton']); ?>" max="<?php echo $item['batch']['total_pieces']; ?>" onchange="changeHiddenInput(document.querySelector('.batch-split-price').textContent, this.getAttribute('calculator-type'))" value="<?php echo number_format($item['batch']['pieces_per_carton']); ?>">
                 <label for="user-sqm">Total Tiles</label>
             </div>
 
@@ -23,28 +21,20 @@
             
         </div>  
         
-        </li>
+    </li>
 
-        <div class="max-qty-available">We have <?php echo $item['stock']; ?> <?php echo $batchData['slabclass']== "slabs" ? "slabs" : "boxes"; ?> available within this batch.</div>
+        <div class="max-qty-available">We have <?php echo $item['stock']; ?> <?php echo $item['batch']['slabclass']== "slabs" ? "slabs" : "boxes"; ?> available within this batch.</div>
 
-    <li class="product-price" title="Includes VAT at <?php echo $batchData['vat_rate']; ?>">
+    <li class="product-price" title="Includes VAT at <?php echo $item['batch']['vat_rate']; ?>">
         <span>Price (Inc. VAT)</span>
         <div class="split-price-inner">
         <div class="tile-data-inner">
-        <div class="split-total-value">&pound;<?php echo $batchData['total_price']; ?></div>
-        <div class="cartons-selected"> (<span class="box-qty">1</span> <?php echo $batchData['slabclass']== "slabs" ? "slabs" : "boxes"; ?>)</div>
+        <div class="split-total-value">&pound;<?php echo $item['batch']['total_price']; ?></div>
+        <div class="cartons-selected"> (<span class="box-qty">1</span> <?php echo $item['batch']['slabclass']== "slabs" ? "slabs" : "boxes"; ?>)</div>
         </div>
     </li>
 
 <?php else: ?>
-    
-    <li>
-        <span>M² per <?php echo $batchData['slabclass'] == "slabs" ? "Slab" : "Box"; ?></span>
-        <div class="tile-data">
-            <div style="display:none" class="cartons-available"><?php echo $item['stock']; ?></div> 
-            <div class="tile-data-inner"><div class="sqm-per-carton"><?php echo $batchData['carton_sqm']; ?></div> m²</div>
-        </div>
-    </li>
 
     <li class="calculations"><span>Select Quantity</span> 
 
@@ -54,7 +44,7 @@
             <label for="user-sqm">Number of m²</label>
             <div class="input-controls">
                 <span class="qty-btns minus">-</span>
-                <input class="qty" calculator-type="sqm" input-type="sqm" type="number" id="user-sqm" name="user-sqm" step="<?php echo $batchData['carton_sqm']; ?>" min="<?php echo $batchData['carton_sqm']; ?>" max="<?php echo $batchData['sqm_available']; ?>" value="<?php echo $batchData['carton_sqm']; ?>">
+                <input class="qty" calculator-type="sqm" input-type="sqm" type="number" id="user-sqm" name="user-sqm" step="<?php echo $item['batch']['carton_sqm']; ?>" min="<?php echo $item['batch']['carton_sqm']; ?>" max="<?php echo $item['batch']['sqm_available']; ?>" value="<?php echo $item['batch']['carton_sqm']; ?>">
                 <span class="qty-btns plus">+</span>
             </div>
         </div>
@@ -65,7 +55,7 @@
                 396.82,429.907 477.427,349.301 	"/></g></svg>
         
         <div class="qty-wrapper">
-            <label for="user-boxes">Number of <?php echo $batchData['slabclass'] == "slabs" ? "slabs" : "boxes"; ?></label>
+            <label for="user-boxes">Number of <?php echo $item['batch']['slabclass'] == "slabs" ? "slabs" : "boxes"; ?></label>
             <div class="input-controls">
                 <span class="qty-btns minus">-</span>
                 <input class="qty" calculator-type="sqm" input-type="cartons" type="number" id="user-sqm-cartons" name="user-sqm-cartons" min="1" max="<?php echo $item['stock']; ?>" step="1" value="1">
@@ -77,40 +67,57 @@
     
     </li>
 
-    <div class="max-qty-available">We have <?php echo $item['stock']; ?> <?php echo $batchData['slabclass']== "slabs" ? "slabs" : "boxes"; ?> available within this batch.</div>
+    <div class="max-qty-available">We have <?php echo $item['stock']; ?> <?php echo $item['batch']['slabclass']== "slabs" ? "slabs" : "boxes"; ?> available within this batch.</div>
 
-    <li class="product-price" title="Includes VAT at <?php echo $batchData['vat_rate']; ?>">
+    <li class="product-price" title="Includes VAT at <?php echo $item['batch']['vat_rate']; ?>">
         <span>Price (Inc. VAT)</span>
         <div class="split-price-inner">
 
         <div class="tile-data-inner">
             <div class="split-total-value">
-            &pound;<?php echo $batchData['total_price']; ?>
+            &pound;<?php echo $item['batch']['total_price']; ?>
             </div>
-            <div class="cartons-selected"> (<span class="box-qty">1</span> <?php echo $batchData['slabclass']== "slabs" ? "slabs" : "boxes"; ?>)</div>
+            <div class="cartons-selected"> (<span class="box-qty">1</span> <?php echo $item['batch']['slabclass']== "slabs" ? "slabs" : "boxes"; ?>)</div>
         
         </div>
     </li>
 
 <?php endif; ?>     
 
-</ul> 
+<li class="product-buttons">
 
-<div class="product-buttons">
-<?php echo shortcode_exists('cptwooint_cart_button') ? do_shortcode( "[cptwooint_cart_button/]" ) : '' ; ?>
-<?php if(array_key_exists('price_per_piece', $item) && $item['price_per_piece'] && $batchData['discount_percentage']) : ?>
-<div class="sticker sticker-saving">
-    <div class="sticker-price sticker-price-saving sticker-price-saving-piece">
-    <span>SAVE</span>£<?php echo $batchData['saving_per_tile']; ?>
-    </div>
-</div>
+    <!-- Add to Cart -->
+    <form class="cart" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="p-cart" <?php echo $item['batch']['inputValues']; ?> p-img="<?php echo esc_url($image_attributes_thumb[0]) ?>" p-ambient="<?php echo esc_url($image_attributes_med_url); ?>">
 
-<?php elseif(array_key_exists('price_per_sqm', $item) && $item['price_per_sqm'] && $batchData['discount_percentage']) : ?>
+        <?php 
+            woocommerce_quantity_input( [
+                'input_name'  => 'quantity',
+                'input_value' => 1,
+                'min_value'   => 1,
+                'max_value'   => $item['stock'],
+            ] );
+        ?>
 
-<div class="sticker sticker-saving">
-    <div class="sticker-price sticker-price-saving sticker-price-saving-sqm">
-    <span>SAVE</span>£<?php echo $batchData['sqmsaving']; ?>
-    </div>
-</div>
+        <button type="submit" class="button add_to_cart_button">Add to bag</button>
+    </form>
 
-<?php endif; ?>
+    <?php if(array_key_exists('price_per_piece', $item) && $item['price_per_piece'] && $item['batch']['discount_percentage']) : ?>
+
+        <div class="sticker sticker-saving">
+            <div class="sticker-price sticker-price-saving sticker-price-saving-piece">
+            <span>SAVE</span>£<?php echo $item['batch']['saving_per_tile']; ?>
+            </div>
+        </div>
+
+    <?php elseif(array_key_exists('price_per_sqm', $item) && $item['price_per_sqm'] && $item['batch']['discount_percentage']) : ?>
+
+        <div class="sticker sticker-saving">
+            <div class="sticker-price sticker-price-saving sticker-price-saving-sqm">
+            <span>SAVE</span>£<?php echo $item['batch']['sqmsaving']; ?>
+            </div>
+        </div>
+
+    <?php endif; ?>
+
+</li>

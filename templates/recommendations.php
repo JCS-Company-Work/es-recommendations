@@ -122,26 +122,33 @@ $items   = $compare->display_recommendations();
                             
                             <?php if(empty($item['batch']['split_price'])): ?>
                             
-                            <li>
-                                <div class="price-details">
-                                    
-                                    &pound;<?php echo $item['batch']['discount_percentage'] ? number_format((($item['discounted_carton_price'] * $item['stock']) * $item['vatRate']), 2, '.', '')  : number_format((($item['single_carton_price'] * $item['stock']) * $item['vatRate']), 2, '.', ''); ?>
+                                <li>
+                                    <div class="price-details">
+                                        
+                                        &pound;<?php echo $item['batch']['discount_percentage'] ? number_format((($item['discounted_carton_price'] * $item['stock']) * $item['vatRate']), 2, '.', '')  : number_format((($item['single_carton_price'] * $item['stock']) * $item['vatRate']), 2, '.', ''); ?>
 
-                                    <!-- <?php if(!empty($item['batch']['discount_percentage'])) : ?>
+                                        <!-- <?php if(!empty($item['batch']['discount_percentage'])) : ?>
 
-                                        <div class="discounted-price">(includes <?php echo $item['batch']['discount_percentage']; ?>% discount)</div>
+                                            <div class="discounted-price">(includes <?php echo $item['batch']['discount_percentage']; ?>% discount)</div>
 
-                                    <?php endif; ?> -->
-                                    
+                                        <?php endif; ?> -->
+                                        
                                     </div>
-                            </li>
+                                    
+                                </li>
                                     
                                 <?php endif; ?>
 
                             <?php endif; ?>
-                            
+
                         </ul>
+
                     </a>
+
+                    <ul class="qty-basket-btns" style="padding-left: 0px;">
+                        <?php require(__DIR__ . '/qty-basket-btns.php'); ?>
+                    </ul>
+                    
                     <a class="wishlist-icon" title="Add to wishlist"><i class="fa-regular fa-heart"></i></a>
 
                     <?php if(! array_key_exists('decor', $item['batch'])) : ?>
@@ -177,14 +184,7 @@ $items   = $compare->display_recommendations();
                         <input type="hidden" name="p" <?php echo $item['batch']['inputValues']; ?> p-img="">
 
                     <?php endif; ?>
-
-                     <!-- Add to Cart -->
-                    <!-- <form class="cart" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" enctype="multipart/form-data">
-                            <input type="hidden" name="add-to-cart" value="<?php echo $item['id']; ?>">
-                            <button type="submit" class="button add_to_cart_button">Add to bag</button>
-                        </form> -->
-
-                   <?php require(__DIR__ . '/qty-basket-btns.php'); ?>
+                   
                 </li>
 
                 <?php $i++; ?>
@@ -196,6 +196,7 @@ $items   = $compare->display_recommendations();
     </div>
 <?php endif; ?>
 </main>
+
 <?php get_footer(); ?>
 
 
