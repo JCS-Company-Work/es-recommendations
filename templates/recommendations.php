@@ -138,8 +138,6 @@ $items   = $compare->display_recommendations();
                                     
                                 <?php endif; ?>
 
-                            
-
                             <?php endif; ?>
                             
                         </ul>
@@ -169,7 +167,7 @@ $items   = $compare->display_recommendations();
                         </div>
 
                     <?php endif; ?>
-                        
+                         
                     <?php if($item['gallery']) : ?>
 
                         <input type="hidden" name="p" <?php echo $item['batch']['inputValues']; ?> p-img="<?php echo $item['gallery']['src'][0]; ?>">
@@ -180,6 +178,13 @@ $items   = $compare->display_recommendations();
 
                     <?php endif; ?>
 
+                     <!-- Add to Cart -->
+                    <!-- <form class="cart" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="add-to-cart" value="<?php echo $item['id']; ?>">
+                            <button type="submit" class="button add_to_cart_button">Add to bag</button>
+                        </form> -->
+
+                   <?php require(__DIR__ . '/qty-basket-btns.php'); ?>
                 </li>
 
                 <?php $i++; ?>

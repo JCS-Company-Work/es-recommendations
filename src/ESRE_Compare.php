@@ -102,6 +102,7 @@ class ESRE_Compare {
                     'sqm'                       => $tileData->sqm,
                     'vatRate'                   => $tileData->vatRate,
                     'single_carton_price'       => $tileData->single_carton_price,
+                    'price_per_piece'           => get_field('price_per_piece') ? true : false,
 
                 ];
             }
