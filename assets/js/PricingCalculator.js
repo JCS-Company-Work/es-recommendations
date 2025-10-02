@@ -52,14 +52,43 @@ class PricingCalculator {
     }
 
     stepInput(input, dir) {
+        
+        // Step size taken from input's "step" attribute, default 1
         const step = parseFloat(input.step) || 1;
+        
+        // Minimum value allowed (defaults to 0 if not set)
         const min = parseFloat(input.min) || 0;
+        
+        // Maximum value allowed (Infinity if not set)
         const max = parseFloat(input.max) || Infinity;
 
+        
+        // Current numeric value from the input (or use min if empty/invalid)
         let value = parseFloat(input.value) || min;
+        
+        // Preview of the new value (before clamping)
+        const newValue = value + dir * step;
+
+        
+        // If new value would exceed max, show "max available" message
+        if (newValue > max) {
+
+            const wrapper = input.closest('.quantity-wrapper');
+            this.maxAvailableMessage(wrapper, "block");
+
+        } else {
+
+            const wrapper = input.closest('.quantity-wrapper');
+            this.maxAvailableMessage(wrapper, "none");
+
+        }
+
+        // Actually apply the new value with clamping
         value = value + dir * step;
         value = Math.max(min, Math.min(value, max));
 
+        
+        // Update input value with correct decimal precision
         input.value = value.toFixed(this.decimals(step));
     }
 
@@ -99,7 +128,7 @@ class PricingCalculator {
     }
 
     updateHiddenInput(wrapper) {
-console.log(wrapper);
+
         //get batch hidden input field
         const hiddenInput = wrapper.querySelector("input[name='p-cart']");
 
@@ -149,6 +178,17 @@ console.log(wrapper);
 
         cartonsSelected.innerHTML = boxesSelected;
 
+    }
+
+    maxAvailableMessage = (wrapper, displayValue) => {
+
+        const maxAvailable = wrapper.querySelector('.max-qty-available');
+
+        if (maxAvailable && maxAvailable.style.display !== displayValue) {
+
+            maxAvailable.style.display = displayValue;
+
+        }
     }
 }
 
