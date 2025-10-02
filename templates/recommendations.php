@@ -126,12 +126,6 @@ $items   = $compare->display_recommendations();
                                     <div class="price-details">
                                         
                                         &pound;<?php echo $item['batch']['discount_percentage'] ? number_format((($item['discounted_carton_price'] * $item['stock']) * $item['vatRate']), 2, '.', '')  : number_format((($item['single_carton_price'] * $item['stock']) * $item['vatRate']), 2, '.', ''); ?>
-
-                                        <!-- <?php if(!empty($item['batch']['discount_percentage'])) : ?>
-
-                                            <div class="discounted-price">(includes <?php echo $item['batch']['discount_percentage']; ?>% discount)</div>
-
-                                        <?php endif; ?> -->
                                         
                                     </div>
                                     

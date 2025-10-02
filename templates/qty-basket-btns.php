@@ -116,7 +116,7 @@
     <?php if(empty($item['batch']['decor'])) : ?>
 
         <div class="sample-wish-buttons">
-            <button class="button" id="add_to_sample" role="button" onclick="addToStoragePT('cart')"><i class="fa-solid fa-swatchbook" aria-hidden="true"></i> Order free sample</button>
+            <button class="button add_to_sample" role="button"><i class="fa-solid fa-swatchbook" aria-hidden="true"></i> Order free sample</button>
             <!--<button class="level-03 btn wht-btn cart wishlist"  id="add_to_wishlist" role="button" onclick="addToWishlist('wishlist')"><i class="fa-regular fa-heart"></i> Add to Wishlist</button>-->
         </div>
 

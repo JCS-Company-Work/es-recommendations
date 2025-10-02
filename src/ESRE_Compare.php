@@ -34,6 +34,14 @@ class ESRE_Compare {
             ESRE_VERSION,
             true
         );
+        
+        wp_register_script(
+            'add-sample',
+            plugins_url( '/../assets/js/AddSample.js', __FILE__ ),
+            [],
+            ESRE_VERSION,
+            true
+        );
     }
 
     /**
@@ -48,6 +56,7 @@ class ESRE_Compare {
 
         // Enqueue JS only when needed.
         wp_enqueue_script( 'compare-recommendations' );
+        wp_enqueue_script( 'add-sample' );
 
         // Sanitize and validate the incoming IDs.
         $ids_param = isset( $_GET['ids'] ) ? sanitize_text_field( $_GET['ids'] ) : '';
