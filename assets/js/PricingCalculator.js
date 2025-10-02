@@ -155,8 +155,8 @@ class PricingCalculator {
         const singleCartonPrice = hiddenInput.getAttribute('p-single-carton-price');
 
         // Format cost in UK currency
-        const formattedPrice = singleCartonPrice * boxesSelected;
-
+        const formattedPrice = (singleCartonPrice * boxesSelected).toFixed(2);
+        
         // Update cost on page
         totalPrice.innerHTML = `£${formattedPrice}`;
 

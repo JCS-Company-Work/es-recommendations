@@ -96,8 +96,8 @@
 
     <!-- Add to Cart -->
     <form class="cart" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" enctype="multipart/form-data">
-    
-        <input type="hidden" name="p-cart" <?php echo $item['batch']['inputValues']; ?> p-img="<?php echo esc_url($image_attributes_thumb[0]) ?>" p-ambient="<?php echo esc_url($image_attributes_med_url); ?>">
+
+        <input type="hidden" name="p-cart" <?php echo $item['batch']['inputValues']; ?> p-img="<?php echo $item['gallery']['src'][0] ?>" p-ambient="<?php echo esc_url($image_attributes_med_url); ?>">
 
         <?php 
             woocommerce_quantity_input( [
