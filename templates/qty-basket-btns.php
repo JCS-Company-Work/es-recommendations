@@ -88,6 +88,7 @@
 
     <!-- Add to Cart -->
     <form class="cart" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post" enctype="multipart/form-data">
+    
         <input type="hidden" name="p-cart" <?php echo $item['batch']['inputValues']; ?> p-img="<?php echo esc_url($image_attributes_thumb[0]) ?>" p-ambient="<?php echo esc_url($image_attributes_med_url); ?>">
 
         <?php 
@@ -99,25 +100,15 @@
             ] );
         ?>
 
-        <button type="submit" class="button add_to_cart_button">Add to bag</button>
+        <button type="submit" name="add-to-cart" value="<?php echo $item['id']; ?>" class="single_add_to_cart_button button alt added" aria-expanded="false">Add to Bag</button>
     </form>
 
-    <?php if(array_key_exists('price_per_piece', $item) && $item['price_per_piece'] && $item['batch']['discount_percentage']) : ?>
-
-        <div class="sticker sticker-saving">
-            <div class="sticker-price sticker-price-saving sticker-price-saving-piece">
-            <span>SAVE</span>£<?php echo $item['batch']['saving_per_tile']; ?>
-            </div>
+    <!-- Sample request button -->
+    <?php if(empty($item['batch']['decor'])) : ?>
+        <div class="sample-wish-buttons">
+            <button class="button" id="add_to_sample" role="button" onclick="addToStoragePT('cart')"><i class="fa-solid fa-swatchbook" aria-hidden="true"></i> Order free sample</button>
+            <!--<button class="level-03 btn wht-btn cart wishlist"  id="add_to_wishlist" role="button" onclick="addToWishlist('wishlist')"><i class="fa-regular fa-heart"></i> Add to Wishlist</button>-->
         </div>
-
-    <?php elseif(array_key_exists('price_per_sqm', $item) && $item['price_per_sqm'] && $item['batch']['discount_percentage']) : ?>
-
-        <div class="sticker sticker-saving">
-            <div class="sticker-price sticker-price-saving sticker-price-saving-sqm">
-            <span>SAVE</span>£<?php echo $item['batch']['sqmsaving']; ?>
-            </div>
-        </div>
-
     <?php endif; ?>
 
 </li>

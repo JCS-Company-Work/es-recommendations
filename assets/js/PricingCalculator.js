@@ -1,7 +1,7 @@
 class PricingCalculator {
 
     constructor() {
-        this.wrapperSelector = document.querySelectorAll('.qty-basket-btns');
+        this.wrapperSelector = document.querySelectorAll('.quantity-wrapper');
         this.init();
     }
 
@@ -95,11 +95,11 @@ class PricingCalculator {
         if (wcQtyInput) wcQtyInput.value = boxes;
 
         // Update hidden input
-        this.updateHiddenInput();
+        this.updateHiddenInput(wrapper);
     }
 
     updateHiddenInput(wrapper) {
-
+console.log(wrapper);
         //get batch hidden input field
         const hiddenInput = wrapper.querySelector("input[name='p-cart']");
 

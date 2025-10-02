@@ -145,45 +145,31 @@ $items   = $compare->display_recommendations();
 
                     </a>
 
-                    <ul class="qty-basket-btns" style="padding-left: 0px;">
-                        <?php require(__DIR__ . '/qty-basket-btns.php'); ?>
-                    </ul>
-                    
-                    <a class="wishlist-icon" title="Add to wishlist"><i class="fa-regular fa-heart"></i></a>
+                    <div class="quantity-wrapper">
 
-                    <?php if(! array_key_exists('decor', $item['batch'])) : ?>
-                        <a class="sample-icon" title="Order free sample">
-                            <i class="fa-solid fa-swatchbook"></i>
-                        </a>
-                    <?php endif; ?>
-                    
-                    <?php if(array_key_exists('price_per_piece', $item['batch']) && $item['batch']['price_per_piece'] && $item['batch']['discount_percentage']) : ?>
-                        
-                        <div class="sticker sticker-saving fadeIn-animation">
-                            <div class="sticker-price sticker-price-saving sticker-price-saving-piece">
-                                <span>SAVE</span>£<?php echo $item['batch']['saving_per_tile']; ?>
+                        <ul class="qty-basket-btns" style="padding-left: 0px;">
+                            <?php require(__DIR__ . '/qty-basket-btns.php'); ?>
+                        </ul>
+
+                        <?php if(array_key_exists('price_per_piece', $item['batch']) && $item['batch']['price_per_piece'] && $item['batch']['discount_percentage']) : ?>
+                            
+                            <div class="sticker sticker-saving fadeIn-animation">
+                                <div class="sticker-price sticker-price-saving sticker-price-saving-piece">
+                                    <span>SAVE</span>£<?php echo $item['batch']['saving_per_tile']; ?>
+                                </div>
                             </div>
-                        </div>
-                        
-                    <?php elseif($item['batch']['price_per_sqm'] && $item['batch']['discount_percentage']) : ?>
-
-                        <div class="sticker sticker-saving fadeIn-animation">
-                            <div class="sticker-price sticker-price-saving sticker-price-saving-sqm">
-                                <span>SAVE</span>£<?php echo $item['batch']['sqmsaving']; ?>
+                            
+                        <?php elseif($item['batch']['price_per_sqm'] && $item['batch']['discount_percentage']) : ?>
+    
+                            <div class="sticker sticker-saving fadeIn-animation">
+                                <div class="sticker-price sticker-price-saving sticker-price-saving-sqm">
+                                    <span>SAVE</span>£<?php echo $item['batch']['sqmsaving']; ?>
+                                </div>
                             </div>
-                        </div>
+    
+                        <?php endif; ?>
 
-                    <?php endif; ?>
-                         
-                    <?php if($item['gallery']) : ?>
-
-                        <input type="hidden" name="p" <?php echo $item['batch']['inputValues']; ?> p-img="<?php echo $item['gallery']['src'][0]; ?>">
-
-                    <?php else: ?>
-
-                        <input type="hidden" name="p" <?php echo $item['batch']['inputValues']; ?> p-img="">
-
-                    <?php endif; ?>
+                    </div>
                    
                 </li>
 
