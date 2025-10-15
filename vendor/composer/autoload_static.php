@@ -22,6 +22,9 @@ class ComposerStaticInit3d895a97cb8540a37514fb8313e434b7
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'EsRecommendations\\ESRE_Compare' => __DIR__ . '/../..' . '/src/ESRE_Compare.php',
+        'EsRecommendations\\ESRE_Create' => __DIR__ . '/../..' . '/src/ESRE_Create.php',
+        'EsRecommendations\\ESRE_RegisterTemplates' => __DIR__ . '/../..' . '/src/ESRE_RegisterTemplates.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

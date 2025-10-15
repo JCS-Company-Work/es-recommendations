@@ -8,6 +8,7 @@ get_header();
 
 $compare = new ESRE_Compare();
 $items   = $compare->display_recommendations();
+
 ?>
 <main id="primary" class="site-main recommendations-page">
 <?php if ( empty( $items ) ) : ?>
@@ -144,6 +145,8 @@ $items   = $compare->display_recommendations();
                         <ul class="qty-basket-btns" style="padding-left: 0px;">
                             <?php require(__DIR__ . '/qty-basket-btns.php'); ?>
                         </ul>
+
+                        <!-- <a class="wishlist-icon in-wishlist" title="Add to wishlist"><i class="fa-regular fa-heart" aria-hidden="true"></i></a> -->
 
                         <?php if(array_key_exists('price_per_piece', $item['batch']) && $item['batch']['price_per_piece'] && $item['batch']['discount_percentage']) : ?>
                             

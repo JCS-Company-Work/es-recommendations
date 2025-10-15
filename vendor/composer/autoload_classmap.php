@@ -7,4 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'EsRecommendations\\ESRE_Compare' => $baseDir . '/src/ESRE_Compare.php',
+    'EsRecommendations\\ESRE_Create' => $baseDir . '/src/ESRE_Create.php',
+    'EsRecommendations\\ESRE_RegisterTemplates' => $baseDir . '/src/ESRE_RegisterTemplates.php',
 );

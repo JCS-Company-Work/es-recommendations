@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (allIds.length === 0) return;
 
         // Build the URL
-        const baseUrl = 'https://emporiosurfaces.local/support/list/recommendations';
-        const builtUrl = baseUrl + '?ids=' + encodeURIComponent(allIds.join(','));
+        const baseUrl = 'https://emporiosurfaces.local/support/recommendations/batchid/';
+        const builtUrl = baseUrl + encodeURIComponent(allIds.join(','));
 
         // Update link
         compareLink.href = builtUrl;
