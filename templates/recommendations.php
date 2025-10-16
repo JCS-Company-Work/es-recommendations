@@ -15,6 +15,9 @@ $items   = $compare->display_recommendations();
     <p>No valid products selected for comparison.</p>
 <?php else : ?>
     <div class="category-products">
+
+        <h2 class="page-title"><?php the_title(); ?></h2>
+        
         <ul class="product-list container productloading">
             <?php foreach ( $items as $index => $item ) : ?>
                 <li 
@@ -176,6 +179,11 @@ $items   = $compare->display_recommendations();
             <?php endforeach; ?>
             <li class="gap"></li><li class="gap"></li><li class="gap"></li>
         </ul>
+
+        <?php if (is_page('wishlist') && get_query_var('batchid')) : ?>
+            <button class="clearwishlist">Clear Wishlist</button>
+        <?php endif; ?>
+
     </div>
 <?php endif; ?>
 </main>
